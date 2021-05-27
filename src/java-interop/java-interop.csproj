@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.Build.NoTargets">
   <PropertyGroup>
-    <TargetFrameworks>net472;net6.0</TargetFrameworks>
+    <TargetFramework Condition="'$(BuildingForNetCoreApp)' != 'true'">net472</TargetFramework>
+    <TargetFramework Condition="'$(BuildingForNetCoreApp)' == 'true'">net6.0</TargetFramework>
     <OutputPath>$(ToolOutputFullPath)</OutputPath>
     <JNIEnvGenPath>$(BuildToolOutputFullPath)</JNIEnvGenPath>
     <OutputName>java-interop</OutputName>

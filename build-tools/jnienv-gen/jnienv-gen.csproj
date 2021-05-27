@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net472;net6.0</TargetFrameworks>
+    <TargetFramework Condition="'$(BuildingForNetCoreApp)' != 'true'">net472</TargetFramework>
+    <TargetFramework Condition="'$(BuildingForNetCoreApp)' == 'true'">net6.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\$(TargetFramework.ToLowerInvariant())\</IntermediateOutputPath>
   </PropertyGroup>

@@ -4,6 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <_OutputPath>$(MSBuildThisFileDirectory)bin\Build$(Configuration)\</_OutputPath>
+    <BuildingForNetCoreApp Condition=" '$(BuildingForNetCoreApp)' == '' ">false</BuildingForNetCoreApp>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -27,10 +28,7 @@
     <AppendTargetFrameworkToOutputPath Condition=" '$(AppendTargetFrameworkToOutputPath)' == '' ">False</AppendTargetFrameworkToOutputPath>
     <BaseIntermediateOutputPath Condition=" '$(BaseIntermediateOutputPath)' == '' ">obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-    <JIBuildingForNetCoreApp>True</JIBuildingForNetCoreApp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(JIBuildingForNetCoreApp)' == 'True' ">
+  <PropertyGroup Condition=" '$(BuildingForNetCoreApp)' == 'True' ">
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)-$(TargetFramework.ToLowerInvariant())</IntermediateOutputPath>
     <BuildToolOutputFullPath>$(MSBuildThisFileDirectory)bin\Build$(Configuration)-$(TargetFramework.ToLowerInvariant())\</BuildToolOutputFullPath>
     <ToolOutputFullPath>$(MSBuildThisFileDirectory)bin\$(Configuration)-$(TargetFramework.ToLowerInvariant())\</ToolOutputFullPath>
@@ -39,7 +37,7 @@
     <UtilityOutputFullPath Condition=" '$(UtilityOutputFullPathCoreApps)' == '' ">$(ToolOutputFullPath)</UtilityOutputFullPath>
     <RollForward>Major</RollForward>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(JIBuildingForNetCoreApp)' != 'True' ">
+  <PropertyGroup Condition=" '$(BuildingForNetCoreApp)' != 'True' ">
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)</IntermediateOutputPath>
     <BuildToolOutputFullPath>$(MSBuildThisFileDirectory)bin\Build$(Configuration)\</BuildToolOutputFullPath>
     <ToolOutputFullPath>$(MSBuildThisFileDirectory)bin\$(Configuration)\</ToolOutputFullPath>
@@ -66,10 +64,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <Runtime Condition="'$(OS)' != 'Windows_NT'">mono</Runtime>
-    <_JNIEnvGenPath Condition=" '$(JIBuildingForNetCoreApp)' == 'True' ">$(BuildToolOutputFullPath)jnienv-gen.dll</_JNIEnvGenPath>
-    <_JNIEnvGenPath Condition=" '$(JIBuildingForNetCoreApp)' != 'True' ">$(BuildToolOutputFullPath)jnienv-gen.exe</_JNIEnvGenPath>
-    <_RunJNIEnvGen Condition=" '$(JIBuildingForNetCoreApp)' == 'True' ">$(DotnetToolPath) "$(_JNIEnvGenPath)"</_RunJNIEnvGen>
-    <_RunJNIEnvGen Condition=" '$(JIBuildingForNetCoreApp)' != 'True' ">$(Runtime) "$(_JNIEnvGenPath)"</_RunJNIEnvGen>
+    <_JNIEnvGenPath Condition=" '$(BuildingForNetCoreApp)' == 'True' ">$(BuildToolOutputFullPath)jnienv-gen.dll</_JNIEnvGenPath>
+    <_JNIEnvGenPath Condition=" '$(BuildingForNetCoreApp)' != 'True' ">$(BuildToolOutputFullPath)jnienv-gen.exe</_JNIEnvGenPath>
+    <_RunJNIEnvGen Condition=" '$(BuildingForNetCoreApp)' == 'True' ">$(DotnetToolPath) "$(_JNIEnvGenPath)"</_RunJNIEnvGen>
+    <_RunJNIEnvGen Condition=" '$(BuildingForNetCoreApp)' != 'True' ">$(Runtime) "$(_JNIEnvGenPath)"</_RunJNIEnvGen>
   </PropertyGroup>
   
   <!-- Add Roslyn analyzers NuGet to all projects -->
