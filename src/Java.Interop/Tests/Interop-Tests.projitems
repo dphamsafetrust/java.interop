@@ -64,7 +64,7 @@
   </ItemGroup>
   <Target Name="BuildInteropTestJar" Inputs="@(JavaInteropTestJar)" Outputs="$(OutputPath)interop-test.jar">
     <MakeDir Directories="$(IntermediateOutputPath)it-classes" />
-    <Exec Command="javac -source 1.5 -target 1.6 -d &quot;$(IntermediateOutputPath)it-classes&quot; -classpath &quot;$(OutputPath)..\$(Configuration)\java-interop.jar&quot; @(JavaInteropTestJar -&gt; '%(Identity)', ' ')" />
+    <Exec Command="javac -source 1.8 -target 1.8 -d &quot;$(IntermediateOutputPath)it-classes&quot; -classpath &quot;$(OutputPath)..\$(Configuration)\java-interop.jar&quot; @(JavaInteropTestJar -&gt; '%(Identity)', ' ')" />
     <Exec Command="jar cf &quot;$(OutputPath)interop-test.jar&quot; -C &quot;$(IntermediateOutputPath)it-classes&quot; ." />
   </Target>
 </Project>
