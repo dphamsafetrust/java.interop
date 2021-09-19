@@ -40,9 +40,6 @@
     <Compile Include="java-interop-gc-bridge-mono.c" />
   </ItemGroup>
   <ItemGroup>
-    <MacLibLipo Include="obj\lib$(OutputName)-m32.dylib">
-      <Arch>-m32</Arch>
-    </MacLibLipo>
     <MacLibLipo Include="obj\lib$(OutputName)-m64.dylib">
       <Arch>-m64</Arch>
     </MacLibLipo>
