@@ -91,9 +91,8 @@ NATIVE_TIMING_LIB   = libNativeTiming$(NATIVE_EXT)
 bin/Test$(CONFIGURATION)/$(NATIVE_TIMING_LIB): tests/NativeTiming/timing.c $(wildcard $(JI_JDK_INCLUDE_PATHS)/jni.h)
 	mkdir -p `dirname "$@"`
 ifeq ($(OS),Darwin)
-	gcc -g -shared -m32 -o bin/Test$(CONFIGURATION)/libNativeTiming-m32.dylib $< $(JI_JDK_INCLUDE_PATHS:%=-I%)
 	gcc -g -shared -m64 -o bin/Test$(CONFIGURATION)/libNativeTiming-m64.dylib $< $(JI_JDK_INCLUDE_PATHS:%=-I%)
-	lipo bin/Test$(CONFIGURATION)/libNativeTiming-m32.dylib bin/Test$(CONFIGURATION)/libNativeTiming-m64.dylib -create \
+	lipo bin/Test$(CONFIGURATION)/libNativeTiming-m64.dylib -create \
 		-output "$@"
 endif
 ifeq ($(OS),Linux)
